@@ -1,0 +1,16 @@
+query Post($id : ID!) {
+    post(id : $id) {
+        id
+        creator {
+            id
+            name
+        }
+        content {
+            bodyModel {
+                paragraphs {
+                    text
+                }
+            }
+        }
+    }
+}
