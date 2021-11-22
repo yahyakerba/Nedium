@@ -1,0 +1,41 @@
+type Paragraphs {
+    text: String
+    type: String
+    href: String
+    iframe: String
+    layout: String
+    metadata: String
+    markups: [String]
+}
+
+type BodyModel {
+    paragraphs: [Paragraphs]
+}
+
+type Content {
+    bodyModel: BodyModel
+}
+
+type Creator {
+    name: String
+    id: String
+}
+
+type Post {
+    id : ID,
+    content: Content
+    creator: Creator
+}
+
+type Data {
+    id : ID,
+    post: Post
+}
+
+type Main {
+    data: Data
+}
+
+type Query {
+    post(id : ID!) : Post
+}
