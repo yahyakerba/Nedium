@@ -1,0 +1,16 @@
+= Graphql schema
+
+* Edit schema file:
+
+`/schema.graphql`
+
+
+* Generate introspection json and put in: (using e.g.: https://transform.tools/json-to-graphql):
+
+`src/main/graphql/com/medium/schema.json`
+
+
+* Put all the graphql requests in:
+
+`src/main/graphql/com/medium`
+
