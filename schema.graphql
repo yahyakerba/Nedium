@@ -1,19 +1,16 @@
-type Paragraphs {
-    text: String
-    type: String
-    href: String
-    iframe: String
-    layout: String
-    metadata: String
-    markups: [String]
+type Root {
+    data: Data
 }
 
-type BodyModel {
-    paragraphs: [Paragraphs]
+type Data {
+    post: Post
 }
 
-type Content {
-    bodyModel: BodyModel
+type Post {
+    title: String
+    createdAt: Int
+    creator: Creator
+    content: Content
 }
 
 type Creator {
@@ -21,21 +18,83 @@ type Creator {
     id: String
 }
 
-type Post {
-    id : ID,
-    content: Content
-    creator: Creator
+type Content {
+    bodyModel: BodyModel
 }
 
-type Data {
-    id : ID,
-    post: Post
+type BodyModel {
+    paragraphs: [Paragraph]
 }
 
-type Main {
-    data: Data
+type Paragraph {
+    text: String
+    type: ParagraphType
+    href: String
+    markups: [Markup]
+    iframe: IFrame
+    layout: String
+    metadata: Metadata
 }
 
-type Query {
+
+enum ParagraphType {
+    BQ
+    H2
+    H3
+    H4
+    IFRAME
+    IMG
+    MIXTAPE_EMBED
+    OLI
+    P
+    PQ
+    PRE
+    SECTION_CAPTION
+    ULI
+}
+
+type Markup {
+    title: String
+    type: MarkupType
+    href: String
+    userId: String
+    start: Int
+    end: Int
+    anchorType: AnchorType
+}
+
+
+enum MarkupType {
+    A
+    CODE
+    EM
+    STRONG
+}
+
+enum AnchorType {
+    LINK
+    USER
+}
+
+type IFrame {
+    mediaResource: MediaResource
+}
+
+type MediaResource {
+    href: String
+    iframeSrc: String
+    iframeWidth: Int
+    iframeHeight: Int
+}
+
+type Metadata {
+    id: String
+    originalWidth: Int
+    originalHeight: Int
+}
+
+
+
+type Query{
     post(id : ID!) : Post
 }

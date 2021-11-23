@@ -1,6 +1,7 @@
 query Post($id : ID!) {
-    post(id : $id) {
-        id
+    post(id: $id) {
+        title
+        createdAt
         creator {
             id
             name
@@ -9,6 +10,31 @@ query Post($id : ID!) {
             bodyModel {
                 paragraphs {
                     text
+                    type
+                    href
+                    layout
+                    markups {
+                        title
+                        type
+                        href
+                        userId
+                        start
+                        end
+                        anchorType
+                    }
+                    iframe {
+                        mediaResource {
+                            href
+                            iframeSrc
+                            iframeWidth
+                            iframeHeight
+                        }
+                    }
+                    metadata {
+                        id
+                        originalWidth
+                        originalHeight
+                    }
                 }
             }
         }
