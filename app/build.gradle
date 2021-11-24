@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.apollographql.apollo'
-    id("com.google.devtools.ksp") version "1.5.31-1.0.0"
+    id 'com.google.devtools.ksp' version "1.5.31-1.0.0"
 }
 
 android {
@@ -45,6 +45,11 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    sourceSets {
+        debug {
+            java.srcDir(file("build/generated/ksp/debug/kotlin"))
         }
     }
 }
