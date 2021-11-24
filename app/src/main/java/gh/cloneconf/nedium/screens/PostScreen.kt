@@ -1,11 +1,9 @@
 package gh.cloneconf.nedium.screens
 
 import androidx.compose.runtime.Composable
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 
-@Destination
 @Composable
-fun PostScreen(navigator: DestinationsNavigator, id: String) {
+fun PostScreen(navigator: NavHostController, id: String) {
 
 }

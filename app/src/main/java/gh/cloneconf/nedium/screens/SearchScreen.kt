@@ -1,11 +1,15 @@
 package gh.cloneconf.nedium.screens
 
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavController
 
-@Destination
 @Composable
-fun SearchScreen(navigator: DestinationsNavigator) {
+fun SearchScreen(navController: NavController) {
+
+    Scaffold {
+
+
+    }
 
 }

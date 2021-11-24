@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
-import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.rememberDestinationsNavController
+import androidx.navigation.compose.rememberNavController
+import gh.cloneconf.nedium.nav.NavGraph
 import gh.cloneconf.nedium.ui.theme.NediumTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,8 +21,10 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             NediumTheme(darkTheme = true) {
-                val navController = rememberDestinationsNavController()
-                DestinationsNavHost(navController = navController)
+                val start = if (url == null) Screen.Home.route else Screen.Post.byId(url)
+
+                navController = rememberNavController()
+                NavGraph(navController, start)
             }
 
         }
