@@ -2,15 +2,17 @@ package gh.cloneconf.nedium
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import gh.cloneconf.nedium.screens.HomeScreen
-import gh.cloneconf.nedium.screens.PostScreen
+import androidx.navigation.NavHostController
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.rememberDestinationsNavController
 import gh.cloneconf.nedium.ui.theme.NediumTheme
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController : NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -18,23 +20,13 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            val screen = @Composable {
-                if (url == null) HomeScreen()
-                else {
-                    Regex("([0-9a-f]+)\$").find(url)?.value?.run {
-                        PostScreen(this)
-                    } ?: run {
-                        Toast.makeText(this, "Unable to get the article id!", Toast.LENGTH_SHORT).show()
-                        finish()
-                    }
-
-                }
-            }
-
             NediumTheme(darkTheme = true) {
-                screen.invoke()
+                val navController = rememberDestinationsNavController()
+                DestinationsNavHost(navController = navController)
             }
 
         }
+
     }
+
 }

@@ -6,6 +6,6 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
 @Composable
-fun PostScreen(navigator: DestinationsNavigator, id: String) {
+fun UserScreen(navigator: DestinationsNavigator, id: String) {
 
 }
