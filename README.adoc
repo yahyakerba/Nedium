@@ -6,6 +6,8 @@ Read Medium articles for freely without limits.
 
 Share your medium article link and start reading.
 
+link:https://github.com/cloneconf/Nedium/releases/download/v0.1/app-release.apk[Download APK]
+
 [cols="1,1"]
 |===
 |image:fastlane/metadata/android/en-US/images/01.png[width=300]
