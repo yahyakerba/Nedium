@@ -1,7 +1,6 @@
 package gh.cloneconf.nedium.screens
 
 import android.os.Build
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,7 +12,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,11 +38,6 @@ fun PostScreen(id: String) {
 
 
     Scaffold {
-
-
-        val scope = rememberCoroutineScope()
-
-        val infiniteTransition = rememberInfiniteTransition()
 
 
         val post by produceState<PostQuery.Post?>(initialValue = null) {
@@ -82,12 +75,14 @@ fun PostScreen(id: String) {
                         )
 
 
+                        // Paragraph
                         ParagraphType.P -> {
-                            Text(para.text()!!, Modifier.padding(10.dp))
+                            Text(para.text()!!, Modifier.padding(20.dp, 10.dp))
                         }
 
 
-                        ParagraphType.ULI -> {
+                        // <li>
+                        ParagraphType.ULI, ParagraphType.OLI -> {
                             Row(
                                 Modifier.padding(10.dp),
                                 verticalAlignment = Alignment.CenterVertically,
@@ -108,6 +103,8 @@ fun PostScreen(id: String) {
                         }
 
 
+
+                        // Image
                         ParagraphType.IMG -> {
                             val metadata = para.metadata()!!
 
@@ -157,7 +154,7 @@ fun PostScreen(id: String) {
                                 para.text()?.also {
                                     Text(
                                         it,
-                                        Modifier.padding(5.dp),
+                                        Modifier.padding(10.dp),
                                         fontStyle = FontStyle.Italic,
                                         color = Color.DarkGray
                                     )

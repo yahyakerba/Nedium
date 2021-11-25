@@ -26,6 +26,7 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(this, "Unable to get the article id!", Toast.LENGTH_SHORT).show()
                 finish()
             }
+
         }
 
         setContent {
