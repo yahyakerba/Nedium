@@ -9,9 +9,8 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,158 +36,196 @@ import gh.cloneconf.nedium.Singleton.apollo
 fun PostScreen(id: String) {
 
 
+
     Scaffold {
 
-
-        val post by produceState<PostQuery.Post?>(initialValue = null) {
-            value = apollo.query(PostQuery(id)).await().data?.post()
+        var err by rememberSaveable {
+            mutableStateOf<Exception?>(null)
         }
 
 
-        post?.let { post ->
-
-            LazyColumn {
-
-
-                val paras = post.content()!!.bodyModel()!!.paragraphs()!!
-                items(paras.size) { i ->
-                    val para = paras[i]
+        val post by produceState<PostQuery.Post?>(initialValue = null) {
+            try {
+                value = apollo.query(PostQuery(id)).await().data?.post()
+            }catch (e:Exception){ err = e }
+        }
 
 
-                    when (para.type()) {
 
-                        // Headers
-                        ParagraphType.H2 -> Text(
-                            para.text()!!,
-                            Modifier.padding(10.dp),
-                            style = MaterialTheme.typography.h2
-                        )
-                        ParagraphType.H3 -> Text(
-                            para.text()!!,
-                            Modifier.padding(10.dp),
-                            style = MaterialTheme.typography.h3
-                        )
-                        ParagraphType.H4 -> Text(
-                            para.text()!!,
-                            Modifier.padding(10.dp),
-                            style = MaterialTheme.typography.h4
-                        )
+        if (err != null) {
 
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
 
-                        // Paragraph
-                        ParagraphType.P -> {
-                            Text(para.text()!!, Modifier.padding(20.dp, 10.dp))
-                        }
+                Text("An error occur", Modifier.padding(0.dp, 20.dp), style = MaterialTheme.typography.h1)
+
+                err?.localizedMessage?.also {
+                    Text(it, Modifier.padding(10.dp), style = MaterialTheme.typography.caption)
+                }
+
+                Text("Please try again later :/")
+            }
+
+        } else {
 
 
-                        // <li>
-                        ParagraphType.ULI, ParagraphType.OLI -> {
-                            Row(
+            post?.let { post ->
+
+                LazyColumn {
+
+
+                    val paras = post.content()!!.bodyModel()!!.paragraphs()!!
+                    items(paras.size) { i ->
+                        val para = paras[i]
+
+
+                        when (para.type()) {
+
+                            // Headers
+                            ParagraphType.H2 -> Text(
+                                para.text()!!,
                                 Modifier.padding(10.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                Box(
-                                    Modifier
-                                        .size(10.dp, 3.dp)
-                                        .background(Color.DarkGray)
-                                )
-                                Text(para.text()!!, Modifier.padding(10.dp))
-                            }
-                        }
-
-
-                        ParagraphType.PQ -> {
-                            Text(para.text()!!, Modifier.padding(20.dp), fontStyle = FontStyle.Italic, color = Color.LightGray, style = MaterialTheme.typography.h1, fontFamily = FontFamily.Serif)
-                        }
-
-
-
-                        // Image
-                        ParagraphType.IMG -> {
-                            val metadata = para.metadata()!!
-
-                            val width = metadata.originalWidth() ?: 800
-                            val height = metadata.originalWidth() ?: 600
-
-                            val url =
-                                "https://cdn-images-1.medium.com/fit/c/$width/$height/${metadata.id()}"
-
-                            val painter = rememberImagePainter(
-                                data = url,
-                                builder = {
-                                    crossfade(true)
-                                    memoryCacheKey(metadata.id())
-                                    networkCachePolicy(CachePolicy.ENABLED)
-                                    placeholder(R.drawable.ic_launcher_foreground)
-                                },
-                                imageLoader = ImageLoader.Builder(LocalContext.current)
-                                    .componentRegistry {
-                                        if (Build.VERSION.SDK_INT >= 28) {
-                                            add(ImageDecoderDecoder(LocalContext.current))
-                                        } else {
-                                            add(GifDecoder())
-                                        }
-                                    }
-                                    .build(),
-
+                                style = MaterialTheme.typography.h2
+                            )
+                            ParagraphType.H3 -> Text(
+                                para.text()!!,
+                                Modifier.padding(10.dp),
+                                style = MaterialTheme.typography.h3
+                            )
+                            ParagraphType.H4 -> Text(
+                                para.text()!!,
+                                Modifier.padding(10.dp),
+                                style = MaterialTheme.typography.h4
                             )
 
-                            Column(
-                                Modifier
-                                    .padding(0.dp, 10.dp)
-                                    .fillMaxWidth(),
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
 
-                                Image(
-                                    painter = painter,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(250.dp),
-                                    contentScale = ContentScale.Fit
-                                )
+                            // Paragraph
+                            ParagraphType.P -> {
+                                Text(para.text()!!, Modifier.padding(20.dp, 10.dp))
+                            }
 
-                                para.text()?.also {
-                                    Text(
-                                        it,
-                                        Modifier.padding(10.dp),
-                                        fontStyle = FontStyle.Italic,
-                                        color = Color.DarkGray
+
+                            // <li>
+                            ParagraphType.ULI, ParagraphType.OLI -> {
+                                Row(
+                                    Modifier.padding(10.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center
+                                ) {
+                                    Box(
+                                        Modifier
+                                            .size(10.dp, 3.dp)
+                                            .background(Color.DarkGray)
                                     )
+                                    Text(para.text()!!, Modifier.padding(10.dp))
                                 }
                             }
 
-                        }
+
+                            ParagraphType.PQ -> {
+                                Text(
+                                    para.text()!!,
+                                    Modifier.padding(20.dp),
+                                    fontStyle = FontStyle.Italic,
+                                    color = Color.LightGray,
+                                    style = MaterialTheme.typography.h1,
+                                    fontFamily = FontFamily.Serif
+                                )
+                            }
 
 
+                            // Image
+                            ParagraphType.IMG -> {
+                                val metadata = para.metadata()!!
 
-                        ParagraphType.PRE -> {
-                            Box(modifier = Modifier
-                                .padding(20.dp)
-                                .fillMaxWidth()
-                                .background(Color.DarkGray)) {
-                                Text(para.text()!!, Modifier.padding(10.dp))
+                                val width = metadata.originalWidth() ?: 800
+                                val height = metadata.originalWidth() ?: 600
+
+                                val url =
+                                    "https://cdn-images-1.medium.com/fit/c/$width/$height/${metadata.id()}"
+
+                                val painter = rememberImagePainter(
+                                    data = url,
+                                    builder = {
+                                        crossfade(true)
+                                        memoryCacheKey(metadata.id())
+                                        networkCachePolicy(CachePolicy.ENABLED)
+                                        placeholder(R.drawable.ic_launcher_foreground)
+                                    },
+                                    imageLoader = ImageLoader.Builder(LocalContext.current)
+                                        .componentRegistry {
+                                            if (Build.VERSION.SDK_INT >= 28) {
+                                                add(ImageDecoderDecoder(LocalContext.current))
+                                            } else {
+                                                add(GifDecoder())
+                                            }
+                                        }
+                                        .build(),
+
+                                    )
+
+                                Column(
+                                    Modifier
+                                        .padding(0.dp, 10.dp)
+                                        .fillMaxWidth(),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+
+                                    Image(
+                                        painter = painter,
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(250.dp),
+                                        contentScale = ContentScale.Fit
+                                    )
+
+                                    para.text()?.also {
+                                        Text(
+                                            it,
+                                            Modifier.padding(10.dp),
+                                            fontStyle = FontStyle.Italic,
+                                            color = Color.DarkGray
+                                        )
+                                    }
+                                }
+
+                            }
+
+
+                            ParagraphType.PRE -> {
+                                Box(
+                                    modifier = Modifier
+                                        .padding(20.dp)
+                                        .fillMaxWidth()
+                                        .background(Color.DarkGray)
+                                ) {
+                                    Text(para.text()!!, Modifier.padding(10.dp))
+                                }
+                            }
+
+
+                            else -> {
                             }
                         }
-
-
-
-                        else -> {  }
                     }
+
+
                 }
 
+            } ?: run {
+
+                Box(Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+                }
 
             }
-
-        } ?: run {
-
-            Box(Modifier.fillMaxSize()) {
-                CircularProgressIndicator(Modifier.align(Alignment.Center))
-            }
-
         }
 
 

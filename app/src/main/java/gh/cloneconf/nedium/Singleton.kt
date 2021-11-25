@@ -2,6 +2,7 @@ package gh.cloneconf.nedium
 
 import com.apollographql.apollo.ApolloClient
 import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 object Singleton {
 
@@ -12,6 +13,7 @@ object Singleton {
             .followRedirects(false)
             .followSslRedirects(false)
             .retryOnConnectionFailure(false)
+            .connectTimeout(2, TimeUnit.SECONDS)
             .build()
     }
 
