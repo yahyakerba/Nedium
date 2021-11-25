@@ -22,7 +22,7 @@ Share your medium article link and start reading.
 `/schema.graphql`
 
 
-* Generate introspection json and put in: (using e.g.: https://transform.tools/json-to-graphql):
+* Generate introspection json and put in: (using e.g.: https://transform.tools/graphql-to-introspection-json):
 
 `src/main/graphql/com/medium/schema.json`
 
