@@ -8,6 +8,15 @@ Share your medium article link and start reading.
 
 link:https://github.com/cloneconf/Nedium/releases/download/v0.1/app-release.apk[Download APK]
 
+.How the app get the data?
+The app does get the data from the same endpoint that medium use on their on website, which is:
+https://medium.com/_/graphql
+
+And these endpoint requires an authentation to get posts and also there is no limit -as i tested-
+
+Since their on `graphql`, then it is better to use a client like `apollo`, like what i did in this app.
+
+
 [cols="1,1"]
 |===
 |image:fastlane/metadata/android/en-US/images/01.png[width=300]
