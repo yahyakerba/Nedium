@@ -1,0 +1,3 @@
+Simply app to read medium articles without limits.
+
+Share any article link with this app and start reading :)
