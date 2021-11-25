@@ -8,7 +8,7 @@ Read Medium articles for freely without limits.
 |===
 |image:fastlane/metadata/android/en-US/images/01.png[width=300]
 |image:fastlane/metadata/android/en-US/images/05.png[width=300]
-===]
+|===
 
 
 == Notes
