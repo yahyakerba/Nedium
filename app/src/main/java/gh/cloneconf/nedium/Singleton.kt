@@ -13,7 +13,7 @@ object Singleton {
             .followRedirects(false)
             .followSslRedirects(false)
             .retryOnConnectionFailure(false)
-            .connectTimeout(2, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 
