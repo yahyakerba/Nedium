@@ -1,7 +1,7 @@
 
 = Nedium
 
-== Contributions of any type is is welcomed :)
+== Contributions of any type is welcomed :)
 The is yet not fully implemented, and it still have alot of features to get added :)
 
 You can discuss on link:https://github.com/cloneconf/Nedium/discussions[Discussions] page.
