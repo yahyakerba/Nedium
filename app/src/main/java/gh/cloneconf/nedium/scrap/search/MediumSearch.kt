@@ -10,15 +10,11 @@ import okhttp3.Request
 
 object MediumSearch {
 
-    fun posts(q : String, next : SearchPostDao.PayloadDao.PagingDao.NextDao? = null) : SearchPostPaging {
+    fun posts(q : String, page: Int = 1) : SearchPostPaging {
         val form = FormBody.Builder()
             .add("q", q)
+            .add("page", page.toString())
 
-        next?.also {
-            form.add("ignoredIds", gson.toJson(next.ignoredIds))
-                .add("page", next.page.toString())
-                .add("pageSize", next.pageSize.toString())
-        }
 
         val req = Request.Builder()
             .post(form.build())
@@ -31,7 +27,9 @@ object MediumSearch {
         val resp = okhttp.newCall(req).execute()
 
         val obj = gson.fromJson(
-            resp.body()!!.string().replaceFirst("])}while(1);</x>", ""),
+            resp.body()!!.string().replaceFirst("])}while(1);</x>", "").apply {
+                                                                              println(this)
+            },
             SearchPostDao::class.java
         )
 

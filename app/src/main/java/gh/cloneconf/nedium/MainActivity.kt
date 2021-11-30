@@ -2,10 +2,12 @@ package gh.cloneconf.nedium
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.StrictMode
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.ramcosta.composedestinations.*
+import gh.cloneconf.nedium.screens.PostScreen
 import gh.cloneconf.nedium.ui.theme.NediumTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,14 +32,23 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            val navController = rememberDestinationsNavController()
 
             NediumTheme(true) {
-                DestinationsNavHost(
-                    navController = navController,
-                    startDestination = SearchScreenDestination
-                )
+                id?.let {
+                    PostScreen(it)
+                } ?: run {
+                    val navController = rememberDestinationsNavController()
+
+                    NediumTheme(true) {
+                        DestinationsNavHost(
+                            navController = navController,
+                            startDestination = SearchScreenDestination
+                        )
+                    }
+                }
             }
+
+
         }
 /*
         setContent {

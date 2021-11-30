@@ -10,5 +10,5 @@ class SearchPostPaging(
     more : Boolean,
     val nextObj : SearchPostDao.PayloadDao.PagingDao.NextDao? = null,
 ) : Paging<Post>(posts, more) {
-    fun next() = MediumSearch.posts(q, nextObj)
+    fun next() = MediumSearch.posts(q)
 }

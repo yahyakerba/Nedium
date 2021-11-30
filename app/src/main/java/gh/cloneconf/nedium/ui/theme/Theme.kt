@@ -15,7 +15,7 @@ private val DarkColorPalette = darkColors(
 private val LightColorPalette = lightColors(
     primary = Purple500,
     primaryVariant = Purple700,
-    secondary = Teal200
+    secondary = Teal200,
 
     /* Other default colors to override
 background = Color.White,
@@ -39,6 +39,6 @@ fun NediumTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
         colors = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
+        content = content,
     )
 }
