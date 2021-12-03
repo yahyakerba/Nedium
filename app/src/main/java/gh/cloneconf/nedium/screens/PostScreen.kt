@@ -28,13 +28,13 @@ import coil.request.CachePolicy
 import com.apollographql.apollo.coroutines.await
 import com.medium.PostQuery
 import com.medium.type.ParagraphType
-import com.ramcosta.composedestinations.annotation.Destination
 import gh.cloneconf.nedium.R
 import gh.cloneconf.nedium.Singleton.apollo
 
-@Destination
+@ExperimentalCoilApi
 @Composable
 fun PostScreen(id: String) {
+
 
 
     Scaffold {
@@ -47,9 +47,7 @@ fun PostScreen(id: String) {
         val post by produceState<PostQuery.Post?>(initialValue = null) {
             try {
                 value = apollo.query(PostQuery(id)).await().data?.post()
-            } catch (e: Exception) {
-                err = e
-            }
+            }catch (e:Exception){ err = e }
         }
 
 
@@ -64,11 +62,7 @@ fun PostScreen(id: String) {
                 verticalArrangement = Arrangement.Center
             ) {
 
-                Text(
-                    "An error occur",
-                    Modifier.padding(0.dp, 20.dp),
-                    style = MaterialTheme.typography.h1
-                )
+                Text("An error occur", Modifier.padding(0.dp, 20.dp), style = MaterialTheme.typography.h1)
 
                 err?.localizedMessage?.also {
                     Text(it, Modifier.padding(10.dp), style = MaterialTheme.typography.caption)
@@ -233,6 +227,7 @@ fun PostScreen(id: String) {
 
             }
         }
+
 
 
     }
