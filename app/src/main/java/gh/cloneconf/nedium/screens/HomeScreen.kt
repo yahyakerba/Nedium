@@ -12,11 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import gh.cloneconf.nedium.BuildConfig
 import gh.cloneconf.nedium.R
 
+@Destination(start = true)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navigator: DestinationsNavigator) {
 
 
     Scaffold {

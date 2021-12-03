@@ -1,5 +1,4 @@
 
-
 = Nedium
 
 Read Medium articles freely without limits.
@@ -13,6 +12,31 @@ link:https://github.com/cloneconf/Nedium/releases/download/v0.1/app-release.apk[
 |image:fastlane/metadata/android/en-US/images/01.png[width=300]
 |image:fastlane/metadata/android/en-US/images/05.png[width=300]
 |===
+
+
+___
+Inspired by link:https://www.scribe.rip/[Scribe] _An alternative frontend to Medium_
+(and also where i did figure out the logic of the extraction)
+
+
+== Contributions
+
+Are welcomed :)
+
+You can discuss on link:https://github.com/cloneconf/Nedium/discussions[Discussions] page.
+
+___
+
+== How the app get the data?
+The app does get the data from the same endpoint that medium use on their own website, which is:
+https://medium.com/_/graphql
+
+And this endpoint doesn't requires an authentation to get posts and also there is no limit -as i tested-
+
+Since they use `graphql`, then it is good to use a client like `apollo` for handling requests.
+
+And you can use link:https://chrome.google.com/webstore/detail/graphql-network-inspector/ndlbedplllcgconngcnfmkadhokfaaln?hl=de[GraphQL Network Inspector] on chrome to understand the medium.com site when developing.
+
 
 
 == Notes

@@ -1,6 +1,7 @@
 package gh.cloneconf.nedium
 
 import com.apollographql.apollo.ApolloClient
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -23,5 +24,7 @@ object Singleton {
             .okHttpClient(okhttp)
             .build()
     }
+
+    val gson by lazy { Gson() }
 
 }
