@@ -1,3 +1,7 @@
 Simple app for reading medium articles without limits.
 
 Share any article link with this app and start reading :)
+
+This app still under development and it's not yet completed.
+
+Contributions are welcome ;)
