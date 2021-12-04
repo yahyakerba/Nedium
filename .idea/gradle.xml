@@ -4,18 +4,6 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT">
-            <builds>
-              <build path="$PROJECT_DIR$/../NediumExtractor" name="NediumExtractor">
-                <projects>
-                  <project path="$PROJECT_DIR$/../NediumExtractor" />
-                  <project path="$PROJECT_DIR$/../NediumExtractor/extractor" />
-                </projects>
-              </build>
-            </builds>
-          </compositeBuild>
-        </compositeConfiguration>
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -23,8 +11,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/../NediumExtractor" />
-            <option value="$PROJECT_DIR$/../NediumExtractor/extractor" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

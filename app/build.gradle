@@ -53,7 +53,7 @@ dependencies {
 
     // Nedium extractor.
     // You can use your local version by uncommenting a few lines in the settings.gradle.
-    implementation 'com.github.cloneconf:NediumExtractor:40d184ae00'
+    implementation 'com.github.cloneconf:NediumExtractor:796ef68b9c'
 
 
 
