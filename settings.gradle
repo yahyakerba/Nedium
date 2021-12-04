@@ -3,8 +3,17 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
 rootProject.name = "Nedium"
 include ':app'
+
+
+// Uncomment these lines to use your local version.
+//includeBuild('../NediumExtractor') {
+//    dependencySubstitution {
+//        substitute module('com.github.cloneconf:NediumExtractor') using project(':extractor')
+//    }
+//}

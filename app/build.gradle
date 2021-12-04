@@ -50,6 +50,13 @@ android {
 
 dependencies {
 
+
+    // Nedium extractor.
+    // You can use your local version by uncommenting a few lines in the settings.gradle.
+    implementation 'com.github.cloneconf:NediumExtractor:40d184ae00'
+
+
+
 /* Androidx */
     // AppCompat
     implementation 'androidx.core:core-ktx:1.7.0'
