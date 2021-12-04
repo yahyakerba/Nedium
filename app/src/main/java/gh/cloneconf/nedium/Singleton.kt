@@ -1,6 +1,6 @@
 package gh.cloneconf.nedium
 
-import com.apollographql.apollo.ApolloClient
+import gh.cloneconf.extractor.Extractor
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -17,11 +17,8 @@ object Singleton {
             .build()
     }
 
-    val apollo: ApolloClient by lazy {
-        ApolloClient.builder()
-            .serverUrl(MEDIUM_ENDPOINT)
-            .okHttpClient(okhttp)
-            .build()
+    val extractor by lazy {
+        Extractor(okhttp)
     }
 
 }
