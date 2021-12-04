@@ -77,10 +77,6 @@ dependencies {
 /* Third Party */
 
 
-    // Graphql client - Apollo
-    implementation "com.apollographql.apollo:apollo-runtime:$apollo_version"
-    implementation "com.apollographql.apollo:apollo-coroutines-support:$apollo_version"
-
     // Coil
     implementation("io.coil-kt:coil-compose:1.3.1")
     implementation("io.coil-kt:coil-gif:1.4.0")
