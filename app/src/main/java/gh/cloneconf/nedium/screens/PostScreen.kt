@@ -25,11 +25,10 @@ import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.CachePolicy
-import com.apollographql.apollo.coroutines.await
 import com.medium.PostQuery
 import com.medium.type.ParagraphType
 import gh.cloneconf.nedium.R
-import gh.cloneconf.nedium.Singleton.apollo
+import gh.cloneconf.nedium.Singleton.extractor
 
 @ExperimentalCoilApi
 @Composable
@@ -44,9 +43,10 @@ fun PostScreen(id: String) {
         }
 
 
+
         val post by produceState<PostQuery.Post?>(initialValue = null) {
             try {
-                value = apollo.query(PostQuery(id)).await().data?.post()
+                value = extractor.postById(id)
             }catch (e:Exception){ err = e }
         }
 
