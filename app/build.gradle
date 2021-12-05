@@ -52,7 +52,7 @@ dependencies {
 
     // Nedium extractor.
     // You can use your local version by uncommenting a few lines in the settings.gradle.
-    implementation 'com.github.cloneconf:NediumExtractor:796ef68b9c'
+    implementation 'com.github.cloneconf:NediumExtractor:4da828afd8'
 
 
 
@@ -70,7 +70,10 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.4.0'
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.4.0-beta02")
-
+    // Paging
+    def paging_version = "3.1.0"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha14"
 
 
 /* Third Party */
