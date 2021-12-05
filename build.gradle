@@ -12,13 +12,14 @@ buildscript {
         classpath "com.android.tools.build:gradle:7.0.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
 
-        // Apollo
-        classpath("com.apollographql.apollo:apollo-gradle-plugin:$apollo_version")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+ext {
+    ktor_version = "1.6.6"
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
