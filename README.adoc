@@ -6,9 +6,9 @@ Read Medium articles freely without limits.
 
 Share your medium article link and start reading.
 
-Or link:https://github.com/cloneconf/Nedium/releases/download/v0.1/app-release.apk[Download APK]
+image:https://fdroid.gitlab.io/artwork/badge/get-it-on.png[width=200, link=https://f-droid.org/en/packages/gh.cloneconf.nedium/] (soon!)
 
-image::https://fdroid.gitlab.io/artwork/badge/get-it-on.png[width=200, link=https://f-droid.org/en/packages/gh.cloneconf.nedium/] (soon!)
+Or link:https://github.com/cloneconf/Nedium/releases/download/v0.1/app-release.apk[Download APK]
 
 [cols="1,1"]
 |===
