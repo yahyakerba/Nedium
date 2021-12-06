@@ -2,20 +2,21 @@ package gh.cloneconf.nedium.screens.search.posts
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import gh.cloneconf.extractor.dao.SearchPostDao
-import gh.cloneconf.extractor.model.Post
+import gh.cloneconf.extractor.dao.SearchPostDto
+import gh.cloneconf.extractor.model.PostInfo
 import gh.cloneconf.extractor.model.paging.PostsPaging
 import gh.cloneconf.nedium.Singleton.extractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class SearchPagingSource(
-    private val q : String
-) : PagingSource<SearchPostDao.PayloadDao.PagingDao.NextDao, Post>() {
+    private val q: String
+) : PagingSource<SearchPostDto.PayloadDto.PagingDto.NextDto, PostInfo>() {
 
     override val keyReuseSupported = true
 
-    override fun getRefreshKey(state: PagingState<SearchPostDao.PayloadDao.PagingDao.NextDao, Post>): SearchPostDao.PayloadDao.PagingDao.NextDao? {
+    override fun getRefreshKey(state: PagingState<SearchPostDto.PayloadDto.PagingDto.NextDto, PostInfo>): SearchPostDto.PayloadDto.PagingDto.NextDto? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             println(anchorPage?.nextKey)
@@ -23,18 +24,21 @@ class SearchPagingSource(
         }
     }
 
-    override suspend fun load(params: LoadParams<SearchPostDao.PayloadDao.PagingDao.NextDao>): LoadResult<SearchPostDao.PayloadDao.PagingDao.NextDao, Post> {
+    override suspend fun load(params: LoadParams<SearchPostDto.PayloadDto.PagingDto.NextDto>): LoadResult<SearchPostDto.PayloadDto.PagingDto.NextDto, PostInfo> {
 
         var response: PostsPaging
-        withContext(Dispatchers.IO) {
-            response = extractor.searchForPosts(q, next = params.key)
+        return withContext(Dispatchers.IO) {
+            try {
+                response = extractor.searchForPosts(q, next = params.key)
+                return@withContext LoadResult.Page(
+                    data = response.posts,
+                    prevKey = null,
+                    nextKey = response.nextDao
+                )
+            }catch (e:Exception){
+                LoadResult.Error(e)
+            }
         }
-
-        return LoadResult.Page(
-            data = response.posts,
-            prevKey = null,
-            nextKey = response.nextDao!!
-        )
     }
 
 }

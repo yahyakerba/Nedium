@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
 <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#fff</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -23,4 +23,18 @@
     <style name="Theme.Nedium.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Nedium.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+    <style name="Theme.Nedium.Light" parent="Theme.Nedium.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
+
+    <!-- Black theme -->
+    <style name="Theme.Nedium.Black" parent="Theme.Nedium.NoActionBar">
+        <item name="android:statusBarColor">#000</item>
+    </style>
+
 </resources>

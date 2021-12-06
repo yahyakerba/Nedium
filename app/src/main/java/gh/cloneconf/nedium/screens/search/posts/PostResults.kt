@@ -3,43 +3,40 @@ package gh.cloneconf.nedium.screens.search.posts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingConfig.Companion.MAX_SIZE_UNBOUNDED
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
+import com.ramcosta.composedestinations.annotation.Destination
+import gh.cloneconf.nedium.parts.ErrorComp
+import kotlinx.coroutines.delay
 
+@Destination
 @Composable
 fun PostResults(
-    q : String,
-    onPostClicked : (id : String) -> Unit
+    q: String,
+    onPostClicked: (id: String) -> Unit
 ) {
+    if (q.isEmpty()) return
 
     Scaffold {
 
-        if (q.isEmpty()) {
-            Box(Modifier.padding(20.dp), contentAlignment = Alignment.Center) {
-                Text("No query passed!")
-            }
-            return@Scaffold
-        }
-
-        val pager = remember {
+        val pager = remember(q) {
             Pager(
                 PagingConfig(
                     pageSize = 10,
                     maxSize = 100,
-                    prefetchDistance = 1,
+                    prefetchDistance = 3,
                 )
             ) { SearchPagingSource(q) }
         }
@@ -49,9 +46,12 @@ fun PostResults(
         LazyColumn(Modifier.fillMaxSize()) {
 
             if (lazyPagingItems.loadState.refresh == LoadState.Loading) item {
-                CircularProgressIndicator(
-                    Modifier.padding(20.dp)
+                LinearProgressIndicator(
+                    Modifier.fillMaxWidth()
                 )
+            }else if (lazyPagingItems.loadState.refresh is LoadState.Error) {
+                val a = lazyPagingItems.loadState.refresh as LoadState.Error
+                item { ErrorComp(a.error) { lazyPagingItems.retry() } }
             }
 
             itemsIndexed(lazyPagingItems) { _, post ->
@@ -70,9 +70,10 @@ fun PostResults(
                         )
 
                         if (desc.isNotEmpty()) Text(
-                                desc,
-                                Modifier.padding(20.dp, 5.dp, 20.dp, 20.dp)
-                            )
+                            desc,
+                            Modifier.padding(20.dp, 5.dp, 20.dp, 20.dp)
+                        )
+                        else Spacer(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 20.dp))
                     }
                 }
             }
@@ -86,7 +87,17 @@ fun PostResults(
                             .wrapContentWidth(Alignment.CenterHorizontally)
                     )
                 }
+            }else if (lazyPagingItems.loadState.append is LoadState.Error) {
+                val a = lazyPagingItems.loadState.append as LoadState.Error
+                item {
+                    ErrorComp(a.error) { lazyPagingItems.retry() }
+                }
             }
+
+            item {
+                Spacer(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 50.dp))
+            }
+
         }
 
 

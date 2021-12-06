@@ -6,9 +6,11 @@ import java.util.concurrent.TimeUnit
 
 object Singleton {
 
+    const val REPO_LINK = "https://github.com/cloneconf/Nedium"
+
     const val MEDIUM_ENDPOINT = "https://medium.com/_/graphql"
 
-    val okhttp: OkHttpClient by lazy {
+    private val okhttp: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .followRedirects(false)
             .followSslRedirects(false)
@@ -17,8 +19,6 @@ object Singleton {
             .build()
     }
 
-    val extractor by lazy {
-        Extractor(okhttp)
-    }
+    lateinit var extractor: Extractor
 
 }

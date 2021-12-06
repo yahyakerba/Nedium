@@ -20,21 +20,27 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.CachePolicy
 import com.medium.PostQuery
 import com.medium.type.ParagraphType
+import com.ramcosta.composedestinations.annotation.DeepLink
+import com.ramcosta.composedestinations.annotation.Destination
+import gh.cloneconf.extractor.Extractor
 import gh.cloneconf.nedium.R
 import gh.cloneconf.nedium.Singleton.extractor
 
-@ExperimentalCoilApi
+@Destination(
+    deepLinks = [
+        DeepLink(uriPattern = "https://medium.com/{url}")
+    ]
+)
 @Composable
-fun PostScreen(id: String) {
+fun PostScreen(url: String) {
 
-
+    val id = Extractor.getPostId(url)!!
 
     Scaffold {
 
@@ -43,11 +49,12 @@ fun PostScreen(id: String) {
         }
 
 
-
         val post by produceState<PostQuery.Post?>(initialValue = null) {
             try {
                 value = extractor.postById(id)
-            }catch (e:Exception){ err = e }
+            } catch (e: Exception) {
+                err = e
+            }
         }
 
 
@@ -62,7 +69,11 @@ fun PostScreen(id: String) {
                 verticalArrangement = Arrangement.Center
             ) {
 
-                Text("An error occur", Modifier.padding(0.dp, 20.dp), style = MaterialTheme.typography.h1)
+                Text(
+                    "An error occur",
+                    Modifier.padding(0.dp, 20.dp),
+                    style = MaterialTheme.typography.h1
+                )
 
                 err?.localizedMessage?.also {
                     Text(it, Modifier.padding(10.dp), style = MaterialTheme.typography.caption)
@@ -227,7 +238,6 @@ fun PostScreen(id: String) {
 
             }
         }
-
 
 
     }

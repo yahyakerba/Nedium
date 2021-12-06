@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Nedium</string>
     <string name="source_code">Source Code</string>
+    <string name="search">Search</string>
+    <string name="welcome">Welcome!</string>
+    <string name="search_for_articles">Search for articles…</string>
+    <string name="try_again">Try Again</string>
+    <string name="error_happened">Error Happened!</string>
+    <string name="settings">Settings</string>
+    <string name="follow_system">Follow System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="black">Black</string>
+    <string name="theme">Theme</string>
+    <string name="about">About</string>
+    <string name="send_email">Send Email</string>
+    <string name="unexpected_error">Unexpected Error!</string>
 </resources>

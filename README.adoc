@@ -17,6 +17,12 @@ link:https://github.com/cloneconf/Nedium/releases/download/v0.1/app-release.apk[
 
 == Notes
 
+.testing intents (deep links)
+```
+adb shell am start -a android.intent.action.VIEW -d "https://medium.com/89554d1096ae" gh.cloneconf.nedium
+```
+
+
 .Graphql schema
 
 * Edit schema file:
