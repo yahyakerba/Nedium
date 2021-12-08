@@ -1,25 +1,24 @@
-package gh.cloneconf.nedium.screens.search.posts
+package gh.cloneconf.nedium.ui.screens.posts
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.ramcosta.composedestinations.annotation.Destination
-import gh.cloneconf.nedium.parts.ErrorComp
-import kotlinx.coroutines.delay
+import gh.cloneconf.nedium.ui.parts.ErrorComp
 
 @Destination
 @Composable
@@ -28,22 +27,44 @@ fun PostResults(
     onPostClicked: (id: String) -> Unit
 ) {
     if (q.isEmpty()) return
+    val viewModel = viewModel<PostsViewModel>()
+
 
     Scaffold {
 
         val pager = remember(q) {
-            Pager(
-                PagingConfig(
-                    pageSize = 10,
-                    maxSize = 100,
-                    prefetchDistance = 3,
-                )
-            ) { SearchPagingSource(q) }
+            viewModel.apply {
+                if (a == null) {
+                    a = Pager(
+                        PagingConfig(
+                            pageSize = 10,
+                            maxSize = 100,
+                            prefetchDistance = 3,
+                        )
+                    ) { SearchPagingSource(q) }
+                }
+            }.a!!
         }
 
-        val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
 
-        LazyColumn(Modifier.fillMaxSize()) {
+
+        val lazyPagingItems =
+            pager.flow.collectAsLazyPagingItems()
+
+        val a =Pager(
+            PagingConfig(
+                pageSize = 10,
+                maxSize = 100,
+                prefetchDistance = 3,
+            )
+        ) { SearchPagingSource(q) }
+
+        val lazyListState = rememberLazyListState()
+
+        LazyColumn(
+            Modifier.fillMaxSize(),
+            state = lazyListState
+        ) {
 
             if (lazyPagingItems.loadState.refresh == LoadState.Loading) item {
                 LinearProgressIndicator(
@@ -54,12 +75,15 @@ fun PostResults(
                 item { ErrorComp(a.error) { lazyPagingItems.retry() } }
             }
 
+
             itemsIndexed(lazyPagingItems) { _, post ->
                 post?.apply {
                     Column(
                         Modifier
                             .fillMaxWidth()
-                            .clickable { onPostClicked.invoke(id) }
+                            .clickable {
+                                onPostClicked.invoke(id)
+                            }
                     ) {
 
                         Text(

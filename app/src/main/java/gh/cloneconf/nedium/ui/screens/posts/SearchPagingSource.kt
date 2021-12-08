@@ -1,14 +1,13 @@
-package gh.cloneconf.nedium.screens.search.posts
+package gh.cloneconf.nedium.ui.screens.posts
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import gh.cloneconf.extractor.dao.SearchPostDto
-import gh.cloneconf.extractor.model.PostInfo
-import gh.cloneconf.extractor.model.paging.PostsPaging
-import gh.cloneconf.nedium.Singleton.extractor
+import gh.cloneconf.nedium.api.Extractor.searchForPosts
+import gh.cloneconf.nedium.api.dao.SearchPostDto
+import gh.cloneconf.nedium.model.PostInfo
+import gh.cloneconf.nedium.model.paging.PostsPaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class SearchPagingSource(
     private val q: String
@@ -29,7 +28,7 @@ class SearchPagingSource(
         var response: PostsPaging
         return withContext(Dispatchers.IO) {
             try {
-                response = extractor.searchForPosts(q, next = params.key)
+                response = searchForPosts(q, next = params.key)
                 return@withContext LoadResult.Page(
                     data = response.posts,
                     prevKey = null,

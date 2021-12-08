@@ -1,4 +1,4 @@
-package gh.cloneconf.extractor.dao
+package gh.cloneconf.nedium.api.dao
 
 import androidx.annotation.Keep
 

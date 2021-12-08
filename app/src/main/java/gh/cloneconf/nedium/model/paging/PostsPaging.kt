@@ -1,7 +1,7 @@
-package gh.cloneconf.extractor.model.paging
+package gh.cloneconf.nedium.model.paging
 
-import gh.cloneconf.extractor.dao.SearchPostDto
-import gh.cloneconf.extractor.model.PostInfo
+import gh.cloneconf.nedium.api.dao.SearchPostDto
+import gh.cloneconf.nedium.model.PostInfo
 
 class PostsPaging(
     page: Int,

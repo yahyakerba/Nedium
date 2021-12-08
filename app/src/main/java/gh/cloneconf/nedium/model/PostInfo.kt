@@ -1,4 +1,4 @@
-package gh.cloneconf.extractor.model
+package gh.cloneconf.nedium.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

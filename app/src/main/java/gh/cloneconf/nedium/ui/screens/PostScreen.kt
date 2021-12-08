@@ -28,9 +28,9 @@ import com.medium.PostQuery
 import com.medium.type.ParagraphType
 import com.ramcosta.composedestinations.annotation.DeepLink
 import com.ramcosta.composedestinations.annotation.Destination
-import gh.cloneconf.extractor.Extractor
 import gh.cloneconf.nedium.R
-import gh.cloneconf.nedium.Singleton.extractor
+import gh.cloneconf.nedium.api.Extractor.getPostId
+import gh.cloneconf.nedium.api.Extractor.postById
 
 @Destination(
     deepLinks = [
@@ -40,7 +40,7 @@ import gh.cloneconf.nedium.Singleton.extractor
 @Composable
 fun PostScreen(url: String) {
 
-    val id = Extractor.getPostId(url)!!
+    val id = getPostId(url)!!
 
     Scaffold {
 
@@ -51,7 +51,7 @@ fun PostScreen(url: String) {
 
         val post by produceState<PostQuery.Post?>(initialValue = null) {
             try {
-                value = extractor.postById(id)
+                value = postById(id)
             } catch (e: Exception) {
                 err = e
             }

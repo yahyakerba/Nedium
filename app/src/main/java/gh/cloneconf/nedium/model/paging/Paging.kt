@@ -1,4 +1,4 @@
-package gh.cloneconf.extractor.model.paging
+package gh.cloneconf.nedium.model.paging
 
 open class Paging<T> (
     val page : Int,

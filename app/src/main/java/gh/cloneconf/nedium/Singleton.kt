@@ -1,16 +1,18 @@
 package gh.cloneconf.nedium
 
-import gh.cloneconf.extractor.Extractor
+import com.apollographql.apollo.ApolloClient
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
+/**
+ * Objects that shared in the whole app.
+ */
 object Singleton {
 
-    const val REPO_LINK = "https://github.com/cloneconf/Nedium"
+    val gson : Gson by lazy { Gson() }
 
-    const val MEDIUM_ENDPOINT = "https://medium.com/_/graphql"
-
-    private val okhttp: OkHttpClient by lazy {
+    val okhttp : OkHttpClient by lazy {
         OkHttpClient.Builder()
             .followRedirects(false)
             .followSslRedirects(false)
@@ -19,6 +21,11 @@ object Singleton {
             .build()
     }
 
-    lateinit var extractor: Extractor
+    val apollo : ApolloClient by lazy {
+        ApolloClient.builder()
+            .serverUrl(Const.MEDIUM_GRAPHQL_ENDPOINT)
+            .okHttpClient(okhttp)
+            .build()
+    }
 
 }

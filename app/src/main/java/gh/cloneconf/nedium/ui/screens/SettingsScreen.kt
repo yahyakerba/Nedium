@@ -1,4 +1,4 @@
-package gh.cloneconf.nedium.screens
+package gh.cloneconf.nedium.ui.screens
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -36,6 +36,8 @@ fun SettingsScreen(navigator: DestinationsNavigator) {
             )
         }
     ) {
+
+
 
 
 

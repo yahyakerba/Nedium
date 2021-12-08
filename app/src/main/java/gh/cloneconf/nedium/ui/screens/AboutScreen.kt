@@ -1,11 +1,8 @@
-package gh.cloneconf.nedium.screens
+package gh.cloneconf.nedium.ui.screens
 
 import android.content.Intent
 import android.net.Uri
 import android.widget.ImageView
-import androidx.annotation.OptIn
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,14 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import gh.cloneconf.nedium.BuildConfig
+import gh.cloneconf.nedium.Const.REPO_LINK
 import gh.cloneconf.nedium.R
-import gh.cloneconf.nedium.Singleton.REPO_LINK
 
 @kotlin.OptIn(ExperimentalMaterialApi::class)
 @Destination

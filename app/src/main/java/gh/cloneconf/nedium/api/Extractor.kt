@@ -1,49 +1,20 @@
-package gh.cloneconf.extractor
+package gh.cloneconf.nedium.api
 
-import android.content.Context
-import android.content.ContextWrapper
-import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.cache.normalized.sql.SqlNormalizedCache
-import com.apollographql.apollo.cache.normalized.sql.SqlNormalizedCacheFactory
 import com.apollographql.apollo.coroutines.await
-import com.google.gson.Gson
 import com.medium.PostQuery
-import gh.cloneconf.extractor.Const.MEDIUM_GRAPHQL_ENDPOINT
-import gh.cloneconf.extractor.Const.USER_AGENT
-import gh.cloneconf.extractor.dao.SearchPostDto
-import gh.cloneconf.extractor.model.PostInfo
-import gh.cloneconf.extractor.model.paging.PostsPaging
+import gh.cloneconf.nedium.api.dao.SearchPostDto
+import gh.cloneconf.nedium.model.PostInfo
+import gh.cloneconf.nedium.model.paging.PostsPaging
+import gh.cloneconf.nedium.Const.USER_AGENT
+import gh.cloneconf.nedium.Singleton.apollo
+import gh.cloneconf.nedium.Singleton.gson
+import gh.cloneconf.nedium.Singleton.okhttp
 import okhttp3.FormBody
-import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.util.concurrent.TimeUnit
 
-class Extractor(context: Context) : ContextWrapper(context) {
+object Extractor {
 
-    companion object {
-        fun getPostId(url : String) = Regex("([0-9a-f]+)\$").find(url)?.value
-    }
-
-
-    val gson : Gson by lazy { Gson() }
-
-    val okhttp : OkHttpClient by lazy {
-        OkHttpClient.Builder()
-            .followRedirects(false)
-            .followSslRedirects(false)
-            .retryOnConnectionFailure(false)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .build()
-    }
-
-    val apollo : ApolloClient by lazy {
-        ApolloClient.builder()
-            .serverUrl(MEDIUM_GRAPHQL_ENDPOINT)
-            .okHttpClient(okhttp)
-            .normalizedCache(SqlNormalizedCacheFactory(context,""))
-            .build()
-    }
-
+    fun getPostId(url : String) = Regex("([0-9a-f]+)\$").find(url)?.value
 
 
 
