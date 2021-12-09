@@ -2,8 +2,6 @@
 
 = Nedium
 
-== Still under development, contributions are welcome ;)
-
 Read Medium articles freely without limits.
 
 Share your medium article link and start reading.
