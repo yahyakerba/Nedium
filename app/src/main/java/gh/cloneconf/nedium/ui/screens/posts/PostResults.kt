@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -27,37 +26,23 @@ fun PostResults(
     onPostClicked: (id: String) -> Unit
 ) {
     if (q.isEmpty()) return
-    val viewModel = viewModel<PostsViewModel>()
 
 
     Scaffold {
 
         val pager = remember(q) {
-            viewModel.apply {
-                if (a == null) {
-                    a = Pager(
-                        PagingConfig(
-                            pageSize = 10,
-                            maxSize = 100,
-                            prefetchDistance = 3,
-                        )
-                    ) { SearchPagingSource(q) }
-                }
-            }.a!!
-        }
+           Pager(
+                    PagingConfig(
+                        pageSize = 10,
+                        maxSize = 100,
+                        prefetchDistance = 3,
+                    )
+                ) { SearchPagingSource(q) }
+            }
 
 
 
-        val lazyPagingItems =
-            pager.flow.collectAsLazyPagingItems()
-
-        val a =Pager(
-            PagingConfig(
-                pageSize = 10,
-                maxSize = 100,
-                prefetchDistance = 3,
-            )
-        ) { SearchPagingSource(q) }
+        val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
 
         val lazyListState = rememberLazyListState()
 

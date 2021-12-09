@@ -15,4 +15,6 @@
     <string name="about">About</string>
     <string name="send_email">Send Email</string>
     <string name="unexpected_error">Unexpected Error!</string>
+    <string name="cancel">Cancel</string>
+    <string name="appearance">Appearance</string>
 </resources>

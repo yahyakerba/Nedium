@@ -13,8 +13,10 @@ import androidx.compose.material.icons.filled.Code
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -38,7 +40,9 @@ fun AboutScreen(navigator: DestinationsNavigator) {
                     IconButton(onClick = { navigator.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, null)
                     }
-                }
+                },
+                backgroundColor = Color.Transparent,
+                elevation = 0.dp
             )
         }
     ) {

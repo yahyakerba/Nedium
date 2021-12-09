@@ -1,6 +1,7 @@
 package gh.cloneconf.nedium.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
@@ -30,23 +31,16 @@ onSurface = Color.Black,
 
 val BlackColorPalette = darkColors(
     background = Color.Black,
-
-    onBackground = Color.Black,
     primary = Red300,
     primaryVariant = Red700,
-    secondary = Yellow200
+    secondary = Yellow200,
+    surface = Color.Black
 )
 
 @Composable
-fun NediumTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
+fun NediumTheme(colors : (() -> Colors)?, content: @Composable() () -> Unit) {
     MaterialTheme(
-        colors = colors ?: if (isSystemInDarkTheme()) DarkColorPalette else LightColorPalette,
+        colors = colors?.invoke()  ?:  if (isSystemInDarkTheme()) DarkColorPalette else LightColorPalette,
         typography = Typography,
         shapes = Shapes,
         content = content

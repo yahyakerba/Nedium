@@ -1,9 +1,18 @@
 package gh.cloneconf.nedium
 
+import androidx.compose.material.Colors
+import androidx.datastore.preferences.core.intPreferencesKey
 import gh.cloneconf.nedium.ui.theme.BlackColorPalette
 import gh.cloneconf.nedium.ui.theme.DarkColorPalette
 import gh.cloneconf.nedium.ui.theme.LightColorPalette
 
+
+data class ThemeInfo(
+    val nameRes : Int,
+    val isDark : Boolean? = false,
+    val themeRes : Int? = null,
+    val themeColors : (() -> Colors)? = null
+)
 
 object Const {
 
@@ -12,10 +21,30 @@ object Const {
     const val REPO_LINK = "https://github.com/cloneconf/Nedium"
 
 
+    val THEME_KEY = intPreferencesKey("theme")
+
     val themes = listOf(
-        R.string.follow_system to Pair( R.style.Theme_Nedium, null ),
-        R.string.light to Pair( R.style.Theme_Nedium_Light, { LightColorPalette } ),
-        R.string.dark to Pair( R.style.Theme_Nedium_Black, { DarkColorPalette } ),
-        R.string.black to { BlackColorPalette },
+        ThemeInfo(R.string.follow_system),
+        ThemeInfo(
+            R.string.light,
+            isDark = false,
+            themeRes = R.style.Theme_Nedium_Light,
+            themeColors = { LightColorPalette }
+        ),
+
+        ThemeInfo(
+            R.string.dark,
+            isDark = true,
+            themeRes = R.style.Theme_Nedium_Dark,
+            themeColors = { DarkColorPalette }
+        ),
+
+        ThemeInfo(
+            R.string.black,
+            isDark = true,
+            themeRes = R.style.Theme_Nedium_Black,
+            themeColors = { BlackColorPalette }
+        )
+
     )
 }

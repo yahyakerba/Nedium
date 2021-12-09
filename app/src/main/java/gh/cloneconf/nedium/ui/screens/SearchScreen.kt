@@ -2,6 +2,7 @@ package gh.cloneconf.nedium.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -17,17 +18,27 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.ramcosta.composedestinations.PostScreenDestination
 import com.ramcosta.composedestinations.annotation.DeepLink
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import gh.cloneconf.nedium.R
-import gh.cloneconf.nedium.screens.GoogleSuggestions
+import gh.cloneconf.nedium.api.suggestions.GoogleEngine
+import gh.cloneconf.nedium.ui.parts.SuggestionsComp
+import gh.cloneconf.nedium.ui.screens.posts.PostResults
 
+
+/**
+ * Search screen.
+ * Search for posts and show suggestions from [gh.cloneconf.nedium.api.suggestions.SearchEngineBase].
+ */
 @Destination(
     deepLinks = [
         DeepLink(uriPattern = "https://medium.com/search"),
@@ -35,7 +46,14 @@ import gh.cloneconf.nedium.screens.GoogleSuggestions
     ]
 )
 @Composable
-fun SearchScreen(navigator: DestinationsNavigator, defaultQ: String = "") {
+fun SearchScreen(
+    navigator: DestinationsNavigator,
+    navController: NavController,
+    defaultQ: String = "",
+) {
+
+
+    val focusManager = LocalFocusManager.current
 
 
     Scaffold {
@@ -46,6 +64,10 @@ fun SearchScreen(navigator: DestinationsNavigator, defaultQ: String = "") {
             val focusRequester = remember { FocusRequester() }
 
             var doneShowing by rememberSaveable { mutableStateOf(false) }
+
+            var inputMode by rememberSaveable { mutableStateOf(true) }
+
+
 
 
             Row(
@@ -72,7 +94,7 @@ fun SearchScreen(navigator: DestinationsNavigator, defaultQ: String = "") {
                         .padding(10.dp, 3.dp, 10.dp, 3.dp)
                         .focusRequester(focusRequester),
                     value = q,
-                    onValueChange = { q = it },
+                    onValueChange = { q = it; inputMode = true },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
                         autoCorrect = false,
@@ -91,9 +113,16 @@ fun SearchScreen(navigator: DestinationsNavigator, defaultQ: String = "") {
                         unfocusedBorderColor = Color.Transparent
                     ),
                     trailingIcon = {
-                        if (q.isNotEmpty()) IconButton(onClick = { q = "" }) {
+
+                        if (q.isNotEmpty()) IconButton(
+                            onClick = {
+                                q = ""
+                                focusRequester.requestFocus()
+                            }
+                        ) {
                             Icon(Icons.Default.Close, null)
                         }
+
                     },
                 )
 
@@ -109,11 +138,23 @@ fun SearchScreen(navigator: DestinationsNavigator, defaultQ: String = "") {
             }
 
 
+            if (inputMode) {
 
+                SuggestionsComp(q, GoogleEngine(), modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(), onClick = {
+                    q = it
+                    inputMode = false
+                    focusManager.clearFocus(true)
+                })
 
-            GoogleSuggestions(q)
-
+            } else {
+                PostResults(q = q) {
+                    navigator.navigate(PostScreenDestination(it))
+                }
+            }
 
         }
     }
+
 }
