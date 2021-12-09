@@ -43,7 +43,7 @@ fun SuggestionsComp(
 
 
 
-        if (err == null) {
+        if (err != null) {
             ErrorComp(t = err!!) {}
         }else {
             suggestions?.let {
