@@ -1,0 +1,3 @@
+Aplikasi sederhana untuk membaca artikel Medium tanpa batas.
+
+Bagikan tautan artikel apa pun dengan aplikasi ini dan mulai membaca :) 

@@ -4,7 +4,7 @@
 
 Read Medium articles freely without limits.
 
-Share your medium article link and start reading.
+Share your Medium article link and start reading.
 
 image:https://fdroid.gitlab.io/artwork/badge/get-it-on.png[width=200, link=https://f-droid.org/en/packages/gh.cloneconf.nedium/]
 
