@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Nedium</string>
+    <string name="source_code">Kode Sumber</string>
+    <string name="search">Cari</string>
+    <string name="welcome">Selamat Datang!</string>
+    <string name="search_for_articles">Cari artikel…</string>
+    <string name="try_again">Coba Lagi</string>
+    <string name="error_happened">Galat Terjadi!</string>
+    <string name="settings">Pengaturan</string>
+    <string name="follow_system">Ikuti Sistem</string>
+    <string name="light">Terang</string>
+    <string name="dark">Gelap</string>
+    <string name="black">Hitam</string>
+    <string name="theme">Tema</string>
+    <string name="about">Tentang</string>
+    <string name="send_email">Kirim Surel</string>
+    <string name="unexpected_error">Galat Tak Terduga!</string>
+    <string name="cancel">Batal</string>
+    <string name="appearance">Tampilan</string>
+</resources>
