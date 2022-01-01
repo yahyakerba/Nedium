@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Nedium</string>
+    <string name="source_code">Zdrojový kód</string>
+    <string name="search">Hledat</string>
+    <string name="welcome">Vítejte!</string>
+    <string name="search_for_articles">Hledat články…</string>
+    <string name="try_again">Zkusit znovu</string>
+    <string name="error_happened">Vyskytla se chyba!</string>
+    <string name="settings">Nastavení</string>
+    <string name="follow_system">Podle systému</string>
+    <string name="light">Světlý</string>
+    <string name="dark">Tmavý</string>
+    <string name="black">Černý</string>
+    <string name="theme">Motiv</string>
+    <string name="about">O aplikaci</string>
+    <string name="send_email">Poslat e-mail</string>
+    <string name="unexpected_error">Neočekávaná chyba!</string>
+    <string name="cancel">Zrušit</string>
+    <string name="appearance">Vzhled</string>
+</resources>
