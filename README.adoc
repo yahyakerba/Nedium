@@ -1,5 +1,3 @@
-= NOTE: This project is discontinued, please switch to link:https://github.com/cloneconf/xmedium[XMedium] for better experience. Thanks!
-
 = Nedium
 
 Read Medium articles freely without limits.
