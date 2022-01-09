@@ -2,6 +2,8 @@
 
 Read Medium articles freely without limits.
 
+Also you can see link:https://github.com/cloneconf/xmedium/[XMedium] if you want to.
+
 Share your Medium article link and start reading.
 
 image:https://fdroid.gitlab.io/artwork/badge/get-it-on.png[width=200, link=https://f-droid.org/en/packages/gh.cloneconf.nedium/]
