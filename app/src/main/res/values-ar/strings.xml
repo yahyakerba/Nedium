@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Nedium</string>
+    <string name="source_code">كود المصدر</string>
+    <string name="search">البحث</string>
+    <string name="welcome">مرحبا!</string>
+    <string name="search_for_articles">بحث عن مقالات ...</string>
+    <string name="try_again">حاول مجددا</string>
+    <string name="error_happened">حدث خطأ!</string>
+    <string name="settings">الإعدادات</string>
+    <string name="follow_system">اتبع النظام</string>
+    <string name="light">فاتح</string>
+    <string name="dark">داكن</string>
+    <string name="black">أسود</string>
+    <string name="theme">السمة</string>
+    <string name="about">حول</string>
+    <string name="send_email">ارسل بريد الكتروني</string>
+    <string name="unexpected_error">خطأ غير متوقع!</string>
+    <string name="cancel">إلغاء</string>
+    <string name="appearance">المظهر الخارجي</string>
+</resources>
